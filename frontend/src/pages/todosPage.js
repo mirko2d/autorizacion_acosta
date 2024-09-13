@@ -81,7 +81,7 @@ export const todosPage = () => {
     .then((response) => response.json())
     .then((data) => {
       data.todos.forEach((todo) => {
-        if (todo.id > 10) return;
+        if (todo.id === 0) return;
 
         const tr = document.createElement("tr");
 
