@@ -6,7 +6,9 @@ export const loginPage = () => {
     "items-center",
     "justify-center",
     "h-screen",
-    "bg-gray-200"
+    "bg-gradient-to-r",
+    "from-green-400",
+    "to-blue-600"
   );
 
   const form = document.createElement("form");
@@ -14,18 +16,17 @@ export const loginPage = () => {
   form.classList.add(
     "flex",
     "flex-col",
-    "w-1/6",
-    "gap-4",
+    "w-1/4", // Cambié el ancho para que sea más consistente con el diseño de la página de todos
+    "gap-6",
     "bg-white",
     "p-8",
-    "rounded",
-    "shadow-md"
+    "rounded-lg",
+    "shadow-2xl"
   );
 
   const title = document.createElement("h2");
-
-  title.classList.add("text-2xl", "font-bold", "mb-4");
-  title.textContent = "Login form";
+  title.classList.add("text-3xl", "font-extrabold", "text-center", "mb-4");
+  title.textContent = "Login Form";
 
   const usernameInput = document.createElement("input");
 
@@ -35,10 +36,14 @@ export const loginPage = () => {
   usernameInput.required = true;
   usernameInput.classList.add(
     "w-full",
-    "p-2",
+    "p-3",
     "border",
     "border-gray-300",
-    "rounded"
+    "rounded-lg",
+    "shadow-inner",
+    "focus:outline-none",
+    "focus:ring",
+    "focus:ring-teal-500"
   );
   usernameInput.placeholder = "Username";
 
@@ -50,10 +55,14 @@ export const loginPage = () => {
   passwordInput.name = "password";
   passwordInput.classList.add(
     "w-full",
-    "p-2",
+    "p-3",
     "border",
     "border-gray-300",
-    "rounded"
+    "rounded-lg",
+    "shadow-inner",
+    "focus:outline-none",
+    "focus:ring",
+    "focus:ring-teal-500"
   );
   passwordInput.placeholder = "Password";
 
@@ -62,20 +71,30 @@ export const loginPage = () => {
   submitButton.type = "submit";
   submitButton.classList.add(
     "w-full",
-    "bg-blue-500",
-    "hover:bg-blue-700",
+    "bg-teal-500",
+    "hover:bg-teal-600",
     "text-white",
     "font-bold",
-    "py-2",
+    "py-3",
     "px-4",
-    "rounded"
+    "rounded-full",
+    "shadow-lg",
+    "transition",
+    "duration-300",
+    "ease-in-out"
   );
   submitButton.textContent = "Login";
+
+  // Div para mostrar errores
+  const divError = document.createElement("div");
+  divError.id = "message";
+  divError.classList.add("text-red-500", "mt-2", "hidden");
 
   form.appendChild(title);
   form.appendChild(usernameInput);
   form.appendChild(passwordInput);
   form.appendChild(submitButton);
+  form.appendChild(divError);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -85,8 +104,8 @@ export const loginPage = () => {
 
     // Validación básica
     if (!username || !password) {
-      document.getElementById("message").innerText =
-        "Por favor, completa todos los campos.";
+      divError.innerText = "Por favor, completa todos los campos.";
+      divError.classList.remove("hidden");
       return;
     }
 
@@ -102,17 +121,10 @@ export const loginPage = () => {
 
       if (!response.ok) {
         divError.innerText = "Credenciales inválidas";
-        divError.classList.add(
-          "bg-danger",
-          "text-white",
-          "text-center",
-          "rounded",
-          "p-2",
-          "mt-3"
-        );
+        divError.classList.remove("hidden");
 
         setTimeout(() => {
-          divError.hidden = true;
+          divError.classList.add("hidden");
         }, 3500);
 
         return;
@@ -121,7 +133,9 @@ export const loginPage = () => {
       const data = await response.json();
       console.log(data);
       window.location.pathname = "/home";
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error:", error);
+    }
   });
 
   container.appendChild(form);

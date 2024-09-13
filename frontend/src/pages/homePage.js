@@ -6,26 +6,31 @@ export const homePage = () => {
     "items-center",
     "justify-center",
     "h-screen",
-    "bg-gray-200",
+    "bg-gradient-to-r",
+    "from-green-400",
+    "to-blue-600",
     "flex-col",
-    "gap-4"
+    "gap-6"
   );
 
   const title = document.createElement("h1");
-
-  title.classList.add("text-2xl", "font-bold", "mb-4");
+  title.classList.add("text-4xl", "font-extrabold", "text-white", "mb-4");
   title.textContent = "Home Page";
 
   const btnLogout = document.createElement("button");
-
   btnLogout.classList.add(
     "bg-red-500",
     "text-white",
-    "p-2",
-    "rounded",
-    "hover:bg-red-600"
+    "font-bold",
+    "py-3",
+    "px-6",
+    "rounded-full",
+    "shadow-lg",
+    "hover:bg-red-600",
+    "transition",
+    "duration-300",
+    "ease-in-out"
   );
-
   btnLogout.textContent = "Logout";
 
   btnLogout.addEventListener("click", async () => {
@@ -40,16 +45,20 @@ export const homePage = () => {
   });
 
   const btnTodos = document.createElement("button");
-
   btnTodos.classList.add(
     "bg-blue-500",
     "text-white",
-    "p-2",
-    "rounded",
-    "hover:bg-blue-600"
+    "font-bold",
+    "py-3",
+    "px-6",
+    "rounded-full",
+    "shadow-lg",
+    "hover:bg-blue-600",
+    "transition",
+    "duration-300",
+    "ease-in-out"
   );
-
-  btnTodos.textContent = "View todos";
+  btnTodos.textContent = "View Todos";
 
   btnTodos.addEventListener("click", () => {
     window.location.pathname = "/todos";
